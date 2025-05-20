@@ -12,10 +12,10 @@
         "allowTemplateLiterals": true
       }
     ],
+    "@typescript-eslint/no-var-requires": 0,
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "no-useless-constructor": "error",
-    "no-tabs": "error",
     "func-names": "error",
     "consistent-return": "error"
   }

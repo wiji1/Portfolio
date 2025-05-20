@@ -9,8 +9,15 @@
     "web": "npm run local --prefix web"
   },
   "devDependencies": {
+    "@types/node": "^22.15.18",
     "concurrently": "7.6.0"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.7",
+    "react-router-dom": "^7.6.0",
+    "tailwindcss": "^4.1.7",
+    "vite": "^6.3.5"
+  }
 }
