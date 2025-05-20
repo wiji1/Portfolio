@@ -167,7 +167,7 @@ export function Home() {
 										</div>
 										<div className="flex items-center">
 											<Code size={20} className="text-indigo-600 dark:text-indigo-400 mr-3"/>
-											<a href={profile?.github} className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">Github</a>
+											<a href={profile?.github} className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">GitHub</a>
 										</div>
 										<div className="flex items-center">
 											<FileText size={20} className="text-indigo-600 dark:text-indigo-400 mr-3"/>
