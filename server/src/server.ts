@@ -29,7 +29,7 @@ export const createServer = (): Express => {
   server.use("/v1", createHealthRouter());
   server.use("/v1", createProjectsRouter());
   server.use("/v1", createProfileRouter());
-	server.use("/v1/", createResumeRouter());
+	server.use("/v1", createResumeRouter());
 
 	server.use(express.static(path.join(__dirname, "../../../web/dist")));
 
