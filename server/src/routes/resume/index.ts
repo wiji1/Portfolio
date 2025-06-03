@@ -5,6 +5,8 @@ export const createResumeRouter = () => {
 	const profileRouter = express.Router();
 
 	profileRouter.get("/resume", async (req, res) => {
+		console.log("🎯 RESUME ROUTE HIT - URL:", req.url, "Method:", req.method);
+
 		try {
 			const [profileFromDb] = await db(PROFILE_TABLE).select("*").limit(1);
 
@@ -28,6 +30,8 @@ export const createResumeRouter = () => {
 
 		return false;
 	});
+
+	console.log("✅ Resume router created with /resume route");
 
 	return profileRouter;
 };
