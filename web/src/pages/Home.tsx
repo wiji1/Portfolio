@@ -175,7 +175,7 @@ export function Home() {
 										</div>
 										<div className="flex items-center">
 											<FileText size={20} className="text-indigo-600 dark:text-indigo-400 mr-3"/>
-											<a href="#" className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">Download Resume</a>
+											<a href="/v1/resume" className="text-gray-800 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300">Download Resume</a>
 										</div>
 									</div>
 								</div>

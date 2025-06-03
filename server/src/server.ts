@@ -5,6 +5,7 @@ import { Knex } from "knex";
 import {createProjectsRouter} from "./routes/projects";
 import {createProfileRouter} from "./routes/profile";
 import * as path from "node:path";
+import {createResumeRouter} from "./routes/resume";
 
 const errorHandler = (error: Error, req: Request, res: Response) => {
   console.log(error);
@@ -28,6 +29,7 @@ export const createServer = (): Express => {
   server.use("/v1", createHealthRouter());
   server.use("/v1", createProjectsRouter());
   server.use("/v1", createProfileRouter());
+	server.use("/v1/", createResumeRouter());
 
 	server.use(express.static(path.join(__dirname, "../../../web/dist")));
 
@@ -35,7 +37,7 @@ export const createServer = (): Express => {
 		res.sendFile(path.join(__dirname, "../../../web/dist/index.html"));
 	});
 
-  server.use((req, res, next) => {
+	server.use((req, res, next) => {
     next(new Error("Not found"));
   });
 
@@ -74,7 +76,7 @@ async function initializeTables() {
 			table.string("github");
 			table.string("email");
 			table.string("linkedin");
-			table.string("resume");
+			table.specificType("resume", "LONGBLOB");
 			table.specificType("image", "LONGTEXT");
 		});
 		console.log("Successfully created profile table");
