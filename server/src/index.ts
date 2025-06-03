@@ -3,7 +3,7 @@ import { createServer } from "./server";
 const PORT = process.env.PORT || 8080;
 
 const server = createServer().listen(PORT, () => {
-  console.log(`🚀 Server readys at: http://localhost:${PORT}`);
+  console.log(`🚀 Server ready at: http://localhost:${PORT}`);
 });
 
 const exitHandler = () => {
