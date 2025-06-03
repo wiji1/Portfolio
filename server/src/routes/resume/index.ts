@@ -2,6 +2,8 @@ import express from "express";
 import { db, PROFILE_TABLE } from "../../controllers/database";
 
 export const createResumeRouter = () => {
+	console.log("Attempting to create resume router...");
+
 	const profileRouter = express.Router();
 
 	profileRouter.get("/resume", async (req, res) => {
