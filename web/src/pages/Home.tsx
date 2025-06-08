@@ -6,6 +6,7 @@ import { PageTransitionOverlay } from '../components/PageTransition.tsx';
 import { Code, FileText, Mail } from 'lucide-react';
 import Project from "@shared/types/project";
 import Profile from "@shared/types/profile";
+import Technology from "@shared/types/technology.ts";
 
 interface ProjectResponse {
 	success: boolean;
@@ -17,9 +18,15 @@ interface ProfileResponse {
 	profile: Profile;
 }
 
+interface TechnologyResponse {
+	success: boolean;
+	technologies: Technology[];
+}
+
 export function Home() {
 	const [projects, setProjects] = useState<Project[]>([]);
 	const [profile, setProfile] = useState<Profile>();
+	const [technologies, setTechnologies] = useState<Technology[]>([]);
 	const [showOverlay, setShowOverlay] = useState(true);
 	const [isFadingOut, setIsFadingOut] = useState(false);
 
@@ -49,7 +56,17 @@ export function Home() {
 			}
 		};
 
-		Promise.all([fetchProjects(), fetchProfile()])
+		const fetchTechnologies = async () => {
+			try {
+				const res = await fetch('/v1/technologies');
+				const data = await res.json() as TechnologyResponse;
+				setTechnologies(data.technologies);
+			} catch (error) {
+				console.error('Failed to fetch technologies:', error);
+			}
+		}
+
+		Promise.all([fetchProjects(), fetchProfile(), fetchTechnologies()])
 			.finally(() => {
 				const minimumLoadTime = 50;
 				const fadeOutDuration = 700;
@@ -127,7 +144,7 @@ export function Home() {
 						<h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Featured Projects</h2>
 						<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 							{projects.map((project: Project, index) => (
-								<ProjectCard key={project.title + index} project={project} />
+								<ProjectCard key={project.title + index.toString()} project={project} />
 							))}
 						</div>
 						<div className="text-center mt-12">
@@ -142,10 +159,37 @@ export function Home() {
 				<section id="skills" className="py-20 bg-white dark:bg-gray-800">
 					<div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 						<h2 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">Skills & Technologies</h2>
-						<div className="flex flex-wrap justify-center gap-4">
-							{profile?.skills.split(',').map((skill, index) => (
-								<div key={index} className="px-6 py-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-gray-200 font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out">
-									{skill}
+						<div className="space-y-8">
+							{Object.entries(
+								technologies.reduce((acc, tech) => {
+									if (!acc[tech.category]) {
+										acc[tech.category] = [];
+									}
+									acc[tech.category].push(tech);
+									return acc;
+								}, {} as Record<string, Technology[]>)
+							).map(([category, techs]) => (
+								<div key={category} className="mb-8">
+									<h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white capitalize">
+										{category}
+									</h3>
+									<div className="flex flex-wrap gap-3">
+										{techs.map((tech) => (
+											<div key={tech.id} className="flex items-center px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-300 ease-in-out">
+												<img
+													src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tech.icon}/${tech.icon}-original.svg`}
+													alt={tech.name}
+													className="w-6 h-6 mr-3"
+													onError={(e) => {
+														e.currentTarget.style.display = 'none';
+													}}
+												/>
+												<span className="text-gray-800 dark:text-gray-200 font-medium">
+													{tech.name}
+												</span>
+											</div>
+										))}
+									</div>
 								</div>
 							))}
 						</div>

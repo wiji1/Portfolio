@@ -6,7 +6,6 @@ export default interface Profile {
 	background: string;
 	education: string;
 	interests: string;
-	skills: string;
 	github: string;
 	email: string;
 	linkedin: string;

@@ -1,11 +1,12 @@
 import express, { Express, Response, Request } from "express";
 import { createHealthRouter } from "./routes/health";
-import {db, PROFILE_TABLE, PROJECTS_TABLE} from "./controllers/database"
+import {db, PROFILE_TABLE, PROJECTS_TABLE, TECHNOLOGIES_TABLE} from "./controllers/database"
 import { Knex } from "knex";
 import {createProjectsRouter} from "./routes/projects";
 import {createProfileRouter} from "./routes/profile";
 import * as path from "node:path";
 import {createResumeRouter} from "./routes/resume";
+import {createTechnologiesRouter} from "./routes/technologies";
 
 const errorHandler = (error: Error, req: Request, res: Response) => {
   console.log(error);
@@ -29,6 +30,7 @@ export const createServer = (): Express => {
   server.use("/v1", createHealthRouter());
   server.use("/v1", createProjectsRouter());
   server.use("/v1", createProfileRouter());
+	server.use("/v1", createTechnologiesRouter());
 	server.use("/v1", createResumeRouter());
 
 	server.use(express.static(path.join(__dirname, "../../../web/dist")));
@@ -72,7 +74,6 @@ async function initializeTables() {
 			table.text("background");
 			table.text("education");
 			table.text("interests");
-			table.text("skills");
 			table.string("github");
 			table.string("email");
 			table.string("linkedin");
@@ -81,4 +82,17 @@ async function initializeTables() {
 		});
 		console.log("Successfully created profile table");
 	}
+
+	const hasTechnologiesTable = await db.schema.hasTable(TECHNOLOGIES_TABLE);
+	if (!hasTechnologiesTable) {
+		await db.schema.createTable(TECHNOLOGIES_TABLE, function builder(table: Knex.TableBuilder) {
+			table.increments().primary();
+			table.string("name");
+			table.string("icon");
+			table.string("category");
+		});
+		console.log("Successfully created technologies table");
+	}
+
+
 }
