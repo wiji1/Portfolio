@@ -5,10 +5,7 @@ import Technology from "@shared/types/technology";
 export const createTechnologiesRouter = () => {
 	const technologiesRouter = express.Router();
 
-	console.log("🚀 CREATING TECHNOLOGIES ROUTER");
-
 	technologiesRouter.get("/technologies", (req, res) => {
-		console.log("🎯 TECHNOLOGIES ROUTE HIT - URL:", req.url, "Method:", req.method);
 		db(TECHNOLOGIES_TABLE)
 			.select("*")
 			.then((technologiesFromDb: any[]) => {
