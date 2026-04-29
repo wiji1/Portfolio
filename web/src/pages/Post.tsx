@@ -5,13 +5,13 @@ import 'github-markdown-css/github-markdown-dark.css';
 import { Navigation } from '../components/Navigation';
 import { Footer } from '../components/Footer';
 import { PageTransitionOverlay } from '../components/PageTransition';
-import Post from '@shared/types/post';
+import BlogPost from '@shared/types/post';
 import Profile from '@shared/types/profile';
 import { useTheme } from '../contexts/ThemeContext';
 
 interface PostResponse {
   status: boolean;
-  post: Post;
+  post: BlogPost;
 }
 
 interface ProfileResponse {
@@ -20,12 +20,12 @@ interface ProfileResponse {
 }
 
 export function PostPage() {
-  const [post, setPost] = useState<Post | null>(null);
+  const [post, setPost] = useState<BlogPost | null>(null);
   const [profile, setProfile] = useState<Profile>();
   const [showOverlay, setShowOverlay] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const { id } = useParams<{ id: string }>();
-  const { theme } = useTheme();
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -73,12 +73,12 @@ export function PostPage() {
 
         <main className="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           {post ? (
-            <article className={`markdown-body ${theme === 'dark' ? 'markdown-dark' : 'markdown-light'}`}>
+            <article className={`markdown-body ${isDark ? 'markdown-dark' : 'markdown-light'}`}>
               <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">{post.title}</h1>
               <p className="text-gray-600 dark:text-gray-400 mb-8">{new Date(post.created_at).toLocaleDateString()}</p>
               <div
                 style={{ maxWidth: '100%' }}
-                dangerouslySetInnerHTML={{ __html: post.post }}
+                dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </article>
           ) : (
