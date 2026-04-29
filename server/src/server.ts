@@ -7,6 +7,7 @@ import {createProfileRouter} from "./routes/profile";
 import * as path from "node:path";
 import {createResumeRouter} from "./routes/resume";
 import {createTechnologiesRouter} from "./routes/technologies";
+import {createBlogRouter} from "./routes/blog";
 
 const errorHandler = (error: Error, req: Request, res: Response) => {
   console.log(error);
@@ -32,6 +33,7 @@ export const createServer = (): Express => {
   server.use("/v1", createProfileRouter());
 	server.use("/v1", createTechnologiesRouter());
 	server.use("/v1", createResumeRouter());
+	server.use("/v1", createBlogRouter());
 
 	server.use(express.static(path.join(__dirname, "../../../web/dist")));
 
@@ -92,6 +94,18 @@ async function initializeTables() {
 			table.string("category");
 		});
 		console.log("Successfully created technologies table");
+	}
+
+	const hasBlogTable = await db.schema.hasTable("blog");
+	if (!hasBlogTable) {
+		await db.schema.createTable("blog", function builder(table: Knex.TableBuilder) {
+			table.increments().primary();
+			table.string("title");
+			table.string("tags")
+			table.dateTime("created_at");
+			table.text("content");
+		});
+		console.log("Successfully created blog table");
 	}
 
 

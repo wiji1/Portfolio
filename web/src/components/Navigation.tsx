@@ -5,7 +5,7 @@ import { ThemeToggle } from './ThemeToggle';
 
 interface NavigationProps {
 	profile?: Profile;
-	currentPage?: 'home' | 'projects';
+	currentPage?: 'home' | 'projects' | 'blog';
 }
 
 export function Navigation({ profile, currentPage = 'home' }: NavigationProps) {
@@ -21,6 +21,7 @@ export function Navigation({ profile, currentPage = 'home' }: NavigationProps) {
 		: [
 			{ href: "/", text: "Home" },
 			{ href: "/projects", text: "Projects" },
+			{ href: "/blog", text: "Blog" },
 		];
 
 	return (

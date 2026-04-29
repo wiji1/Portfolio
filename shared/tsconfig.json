@@ -1,13 +1,13 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "esModuleInterop": true,
-    "strict": true,
-    "declaration": true,
-    "outDir": "./dist",
-    "rootDir": ".",
-    "composite": true
-  },
-  "include": ["./**/*"]
+	"compilerOptions": {
+		"target": "ES2020",
+		"module": "commonjs",
+		"rootDir": "types",
+		"outDir": "dist",
+		"esModuleInterop": true,
+		"strict": true,
+		"declaration": true,
+		"composite": true
+	},
+	"include": ["types/**/*"]
 }

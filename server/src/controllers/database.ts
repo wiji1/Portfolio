@@ -3,6 +3,7 @@ import {configDotenv} from "dotenv";
 const PROJECTS_TABLE = "projects";
 const PROFILE_TABLE = "profile";
 const TECHNOLOGIES_TABLE = "technologies";
+const BLOG_TABLE = "blog";
 
 configDotenv();
 
@@ -17,4 +18,4 @@ const knex = require("knex")({
     },
 });
 
-export { knex as db, PROJECTS_TABLE, PROFILE_TABLE, TECHNOLOGIES_TABLE }
+export { knex as db, PROJECTS_TABLE, PROFILE_TABLE, TECHNOLOGIES_TABLE, BLOG_TABLE }
