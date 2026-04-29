@@ -1,9 +1,10 @@
 import { createServer } from "./server";
 
 const PORT = process.env.PORT || 8080;
+const HOST = '0.0.0.0';
 
-const server = createServer().listen(PORT, () => {
-  console.log(`🚀 Server ready at: http://localhost:${PORT}`);
+const server = createServer().listen(PORT, HOST, () => {
+  console.log(`🚀 Server ready at: http://0.0.0.0:${PORT}`);
 });
 
 const exitHandler = () => {
