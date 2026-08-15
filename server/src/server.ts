@@ -5,7 +5,6 @@ import { Knex } from "knex";
 import {createProjectsRouter} from "./routes/projects";
 import {createProfileRouter} from "./routes/profile";
 import * as path from "node:path";
-import {createResumeRouter} from "./routes/resume";
 import {createTechnologiesRouter} from "./routes/technologies";
 import {createBlogRouter} from "./routes/blog";
 
@@ -32,7 +31,6 @@ export const createServer = (): Express => {
   server.use("/v1", createProjectsRouter());
   server.use("/v1", createProfileRouter());
 	server.use("/v1", createTechnologiesRouter());
-	server.use("/v1", createResumeRouter());
 	server.use("/v1", createBlogRouter());
 
 	server.use(express.static(path.join(__dirname, "../../../web/dist")));

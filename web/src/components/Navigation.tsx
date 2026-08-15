@@ -46,7 +46,7 @@ export function Navigation({ profile, currentPage = 'home' }: NavigationProps) {
 							</a>
 						))}
 						<a
-							href="/v1/resume"
+							href="/resume.pdf"
 							className="px-4 py-2 rounded-md bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-colors duration-300"
 						>
 							Resume
@@ -82,7 +82,7 @@ export function Navigation({ profile, currentPage = 'home' }: NavigationProps) {
 							</a>
 						))}
 						<a
-							href="/v1/resume"
+							href="/resume.pdf"
 							onClick={() => setIsMenuOpen(false)}
 							className="px-3 py-2 rounded bg-indigo-600 dark:bg-indigo-500 text-white text-center hover:bg-indigo-700 dark:hover:bg-indigo-600"
 						>
